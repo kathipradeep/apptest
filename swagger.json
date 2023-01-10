@@ -1,0 +1,666 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Heleo application swagger integration demo",
+        "description": " Helio Application API"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/device": {
+            "post": {
+                "tags": [
+                    "Device"
+                ],
+                "description": "Add new Device",
+                "parameters": [
+                    {
+                        "name": "device",
+                        "in": "body",
+                        "description": "Device that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Device"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Device Saved Succesfully"
+                    },
+                    "400": {
+                        "description": "Invalid Request"
+                    },
+                    "404": {
+                        "description": "User Does not exists"
+                    },
+                    "409": {
+                        "description": "Device Already exists"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/device/{deviceId}": {
+            "delete": {
+                "tags": [
+                    "Device"
+                ],
+                "parameters": [
+                    {
+                        "name": "deviceId",
+                        "in": "path",
+                        "type": "number",
+                        "required": true,
+                        "description": "device Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Device deleted successfully."
+                        
+                    },
+                    "403":{
+                        "description": "Device Could Not Be Deleted"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                        
+                    }
+                }
+            }
+        },
+        "/relays/{deviceId}": {
+            "get": {
+                "tags": [
+                    "Relay"
+                ],
+                "parameters": [
+                    {
+                        "name": "deviceId",
+                        "in": "path",
+                        "type": "number",
+                        "required": true,
+                        "description": "Device Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Relay Retrieved Successfully"
+                    },
+                    "400":{
+                      "description": "Invalid Request"
+                    },
+                    "404": {
+                        "description": "No Relay Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/relay/{relayId}": {
+            "get": {
+                "tags": [
+                    "Relay"
+                ],
+                "parameters": [
+                    {
+                        "name": "relayId",
+                        "in": "path",
+                        "type": "number",
+                        "required": true,
+                        "description": "Relay Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Relay Retrieved Successfully"
+                    },
+                    "400":{
+                      "description": "Invalid Request"
+                    },
+                    "404": {
+                        "description": "No Relay Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/location": {
+            "post": {
+                "tags": [
+                    "Location"
+                ],
+                "description": "Add new Location",
+                "parameters": [
+                    {
+                        "name": "location",
+                        "in": "body",
+                        "description": "Location that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Location"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location Saved Successfully."
+                    },
+                    "400": {
+                        "description": "Invalid Request."
+                    },
+                    "403": {
+                        "description": "Device Does not exists."
+                    },
+                    "409": {
+                        "description": "Location Already exists."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }
+            }
+        },
+        "/location/{deviceId}": {
+            "get": {
+                "tags": [
+                    "Location"
+                ],
+                "parameters": [
+                    {
+                        "name": "deviceId",
+                        "in": "path",
+                        "type": "number",
+                        "required": true,
+                        "description": "device Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location Retrieved Successfully."
+                    },
+                    "400":{
+                      "description": "Invalid Request"
+                    },
+                    "403": {
+                        "description": "Device Does not exists."
+                    },
+                    "404": {
+                        "description": "No location Found."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }
+            }
+        },
+        "/updatelocation": {
+            "put": {
+                "tags": [
+                    "Location"
+                ],
+                "parameters": [
+                    {
+                        "name": "location",
+                        "in": "body",
+                        "description": "Location that we want to update",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateLocation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location Updated Successfully."
+                    },
+                    "400": {
+                        "description": "Location can not be updated"
+                    },
+                    "404": {
+                        "description": "Location Does not exists."
+                    },
+                    "500": {
+                        "description": "Internal Server Error."
+                    }
+                }
+            }
+        },
+
+        "/schedule/{scheduleId}": {
+          "get": {
+              "tags": [
+                  "Schedule"
+              ],
+              "parameters": [
+                  {
+                    "name": "scheduleId",
+                    "in": "path",
+                    "type": "number",
+                    "required": true,
+                    "description": "Schedule Id"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Schedule Retrieved Successfully."
+                  },
+                  "400": {
+                      "description": "Invalid Request"
+                  },
+                  "404": {
+                      "description": "No Schedule Found."
+                  },
+                  "500": {
+                      "description": "Internal Server Error."
+                  }
+              }
+          }
+      },
+
+      "/schedules/{relayId}": {
+        "get": {
+            "tags": [
+                "Schedule"
+            ],
+            "parameters": [
+                {
+                  "name": "relayId",
+                  "in": "path",
+                  "type": "number",
+                  "required": true,
+                  "description": "All schedule will be shown based on relayId"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Schedule Retrieved Successfully."
+                },
+                "400": {
+                    "description": "Invalid Request"
+                },
+                "404": {
+                    "description": "No Schedule Found."
+                },
+                "500": {
+                    "description": "Internal Server Error."
+                }
+            }
+        }
+    },
+
+    "/deleteSchedule/{scheduleId}": {
+      "delete": {
+          "tags": [
+              "Schedule"
+          ],
+          "parameters": [
+              {
+                "name": "scheduleId",
+                "in": "path",
+                "type": "number",
+                "required": true,
+                "description": "Delete the schedule."
+              }
+          ],
+          "responses": {
+              "200": {
+                  "description": "Schedule Deleted Successfully."
+              },
+              "400": {
+                  "description": "Invalid Request"
+              },
+              "404": {
+                  "description": "Schedule Does not exist."
+              },
+              "500": {
+                  "description": "Internal Server Error."
+              }
+          }
+      }
+  },
+
+        "/relays/status": {
+            "put": {
+              "tags": ["Relay1"],
+              "parameters": [
+                {
+                  "name": "userID",
+                  "in": "body",
+                  "description": "Based on user id and relay id we are going to update relay status",
+                  "schema": {
+                    "$ref": "#/definitions/Relay1"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Relay updated Successfully",
+                  "schema": {
+                    "$ref": "#/definitions/Relay1"
+                  }
+                },
+                "404": {
+                  "description": "Relay with this id does not exist",
+                  "schema": {
+                    "$ref": "#/definitions/Relay1"
+                  }
+                },
+                "406": {
+                  "description": "Realy status cannot be updated",
+                  "schema": {
+                    "$ref": "#/definitions/Relay1"
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "schema": {
+                    "$ref": "#/definitions/Relay1"
+                  }
+                }
+              }
+            }
+          },
+          "/password": {
+            "post": {
+              "tags": ["User"],
+              "description": "Mail Confirmation",
+              "parameters": [
+                {
+                  "name": "user",
+                  "in": "body",
+                  "description": "Mail you have to confirm for password",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                  "description": "FOUND",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "400": {
+                  "description": "Invalid Request",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "403": {
+                  "description": "NOT_FOUND",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "500": {
+                  "description": "Internal_Server_Error",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "/password/code": {
+            "post": {
+              "tags": ["Forgotpswds"],
+              "description": "Matching the token",
+              "parameters": [
+                {
+                  "name": "user",
+                  "in": "body",
+                  "description": "The token which has been generated has to be entered with in the time",
+                  "schema": {
+                    "$ref": "#/definitions/Forgotpswds"
+                  }
+                }
+              ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                  "description": "SUCCESS",
+                  "schema": {
+                    "$ref": "#/definitions/Forgotpswds"
+                  }
+                },
+                "408": {
+                  "description": "TOKEN_EXPIRED",
+                  "schema": {
+                    "$ref": "#/definitions/Forgotpswds"
+                  }
+                },
+                "400": {
+                  "description": "Invalid Request",
+                  "schema": {
+                    "$ref": "#/definitions/Forgotpswds"
+                  }
+                },
+                "403": {
+                  "description": "FAILURE",
+                  "schema": {
+                    "$ref": "#/definitions/Forgotpswds"
+                  }
+                },
+                "500": {
+                  "description": "Internal_Server_Error",
+                  "schema": {
+                    "$ref": "#/definitions/Forgotpswds"
+                  }
+                }
+              }
+            }
+          },
+          "/user/password": {
+            "put": {
+              "tags": ["Users"],
+              "description": "Updating New Password",
+              "parameters": [
+                {
+                  "name": "user",
+                  "in": "body",
+                  "description": "Password updated Sucessfully",
+                  "schema": {
+                    "$ref": "#/definitions/User1"
+                  }
+                }
+              ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                  "description": "SUCCESS",
+                  "schema": {
+                    "$ref": "#/definitions/User1"
+                  }
+                },
+                "400": {
+                  "description": "Invalid Request",
+                  "schema": {
+                    "$ref": "#/definitions/User1"
+                  }
+                },
+                "403": {
+                  "description": "FAILURE",
+                  "schema": {
+                    "$ref": "#/definitions/User1"
+                  }
+                },
+                "500": {
+                  "description": "Internal_Server_Error",
+                  "schema": {
+                    "$ref": "#/definitions/User1"
+                  }
+                }
+              }
+            }
+          }
+
+
+    },
+    "definitions": {
+        "User": {
+            "properties": {
+              "emailId": {
+                "type": "string",
+                "required": "true"
+              }
+            }
+          },
+          "User1": {
+            "properties": {
+              "emailId": {
+                "type": "string",
+                "required": "true"
+              },
+              "new_pswd": {
+                "type": "string",
+                "required": "true"
+              },
+              "generatedCode": {
+                "type": "string",
+                "required": "true"
+              }
+            }
+          },
+          "Users": {
+            "type": "array",
+            "$ref": "#/definitions/User"
+          },
+          "forgotpswd": {
+            "properties": {
+              "emailId": {
+                "type": "string",
+                "required": "true"
+              },
+              "generatedCode": {
+                "type": "string",
+                "required": "true"
+              }
+            }
+          },
+          "Forgotpswds": {
+            "type": "array",
+            "$ref": "#/definitions/forgotpswd"
+          },
+        "Device": {
+            "properties": {
+                "userId":{
+                    "type":"number",
+                    "required":"true"
+                },
+                "macAddress": {
+                    "type": "string",
+                    "required": "true"
+                }
+            }
+        },
+        "Devices": {
+            "type": "array",
+            "$ref": "#/definitions/Device"
+        },
+        "Relay": {
+            "properties": {
+                "relayId": {
+                    "type": "number",
+                    "required": "true"
+                },
+                "deviceId": {
+                    "type": "number",
+                    "required": "true"
+                },
+                "symbolId": {
+                    "type": "number",
+                    "required": "true"
+                },
+                "switchNo": {
+                    "type": "number",
+                    "required": "true"
+                },
+                "switchName": {
+                    "type": "string",
+                    "required": "true"
+                },
+                "switchStatus": {
+                    "type": "boolean",
+                    "required": "true"
+                }
+
+            }
+        },
+        "Relays": {
+            "type": "array",
+            "$ref": "#/definitions/Relay"
+        },
+        "Location": {
+            "properties": {
+                "deviceId": {
+                    "type": "number",
+                    "required": "true"
+                },
+                "locationName": {
+                    "type": "string",
+                    "required": "true"
+                }
+            }
+        },
+        "UpdateLocation": {
+            "properties": {
+                "locationId": {
+                    "type": "number",
+                    "required": "true"
+                },
+                "locationName": {
+                    "type": "string",
+                    "required": "true"
+                }
+            }
+        },
+        "Locations": {
+            "type": "array",
+            "$ref": "#/definitions/Location"
+        },
+        "Relay1": {
+            "properties": {
+              "userId": {
+                "type": "number",
+                "required": "true"
+              },
+              "relayId": {
+                "type": "number",
+                "required": "true"
+              },
+      
+              "switchStatus": {
+                "type": "number",
+                "required": "true"
+              }
+            }
+          },
+          "Relaystatus": {
+            "type": "array",
+            "$ref": "#/definitions/Relay1"
+          }
+    }
+}
